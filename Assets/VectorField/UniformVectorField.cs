@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StaticVectorField : MonoBehaviour, IVectorField
+public class UniformVectorField : MonoBehaviour, IVectorField
 {
     [SerializeField] Vector3 m_Force = Vector3.zero;
 

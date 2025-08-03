@@ -11,7 +11,8 @@ public class VectorFieldVisualizerGizmo : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (gameObject.activeInHierarchy && vectorFieldGameObject.TryGetComponent<IVectorField>(out IVectorField vectorField)) {
+        var show = gameObject.activeInHierarchy;
+        if (show && vectorFieldGameObject && vectorFieldGameObject.TryGetComponent<IVectorField>(out IVectorField vectorField)) {
             for (int ix = 0; ix < xResolution; ix++)
             {
                 for (int iy = 0; iy < yResolution; iy++)

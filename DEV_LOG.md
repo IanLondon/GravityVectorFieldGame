@@ -125,3 +125,11 @@ It took a while to learn how to make the `PushOffCollidersEffector` send events 
 Next priority is making a better demo, making a little level that makes more sense, tuning the masses of cubes so they push each other, and maybe refining the vector field controls so I can get it to do what I want.
 
 Then, upload it to GitHub and make an overview video.
+
+Git LFS was easy to set up, I wonder how much space this 1.2GB minimal project takes up on GitHub, if there's a lot of compression or not.
+
+Nice to have: I noticed that because the camera is outside the player collider box, the player at some angles will look through walls. That's bad!
+
+It would also be cool to add walking controls, detect being on the ground. It's tricky to walk in a physics sim if you're not kinematic. PID??
+
+The ropes are glitchy, since they swirl around so much and are narrow the restriction on launch angle for kickoff feels weird. Oh well, not important, that's something that could be tuned in a real game.
