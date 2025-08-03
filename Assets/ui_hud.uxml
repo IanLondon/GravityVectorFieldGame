@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/reticle.uss?fileID=7433441132597879392&amp;guid=1a519a24403085f4b863d0e3abe2a366&amp;type=3#reticle" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; -unity-text-outline-color: rgb(125, 125, 125); background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="Reticle" class="reticle" />
+    </ui:VisualElement>
+</ui:UXML>
