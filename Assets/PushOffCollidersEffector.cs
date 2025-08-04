@@ -49,7 +49,6 @@ public class PushOffCollidersEffector : MonoBehaviour
             UpdatePushoffAngleFromTractorNormal();
             if (prevCanCurrentlyPushOff != canCurrentlyPushOff)
             {
-                Debug.Log("TODO event here: player currently can " + (canCurrentlyPushOff ? "" : "NOT ") + "push off. Tractor is engaged.");
                 GameEventsSingleton.instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
             }
         } else {
@@ -59,7 +58,6 @@ public class PushOffCollidersEffector : MonoBehaviour
             bool isInRange = (Physics.Raycast(ray, raycastMaxDistance));
             if (isInRange != lookTargetIsInTractorRange)
             {
-                Debug.Log("TODO event here: look target is now " + (isInRange ? "" : "NOT ") + "in tractor range. Tractor is not engaged.");
                 GameEventsSingleton.instance.PushOffStateChange(isInRange ? PushOffState.InRangeOfLookPoint : PushOffState.OutOfRangeOfLookPoint);
             }
             lookTargetIsInTractorRange = isInRange;
@@ -116,13 +114,9 @@ public class PushOffCollidersEffector : MonoBehaviour
 
             var prevCanCurrentlyPushOff = canCurrentlyPushOff;
             UpdatePushoffAngleFromTractorNormal();
-            Debug.Log("TODO event here: player currently can " + (canCurrentlyPushOff ? "" : "NOT ") + "push off. Tractor is engaged.");
             GameEventsSingleton.instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
         }
-        else
-        {
-            Debug.Log("tractor did not hit anything");
-        }
+        // else do nothing, tractor didn't hit anything
     }
 
     void AttemptPushOff()
@@ -130,7 +124,6 @@ public class PushOffCollidersEffector : MonoBehaviour
         if (tractorHit is RaycastHit hit)
         {
             if (!CanPushOff()) {
-                Debug.Log("Pushoff angle too large, pushoff not allowed.");
                 return;
             }
 

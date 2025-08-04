@@ -18,4 +18,40 @@ public class GameEventsSingleton : MonoBehaviour
             OnPushOffStateChange(state);
         }
     }
+
+    public event Action<GameObject> OnCheckpointActivated;
+    public void CheckpointActivated(GameObject checkpoint)
+    {
+        Debug.Log("checkpoint '" + checkpoint.name + "' activated");
+        if (OnCheckpointActivated != null)
+        {
+            OnCheckpointActivated(checkpoint);
+        }
+    }
+
+    public event Action<PlayerDeathReason> OnKillPlayer;
+    public void KillPlayer(PlayerDeathReason reason)
+    {
+        Debug.Log("player died! " + reason);
+        if (OnKillPlayer != null)
+        {
+            OnKillPlayer(reason);
+        }
+    }
+
+    public event Action<Vector3, Quaternion> OnRespawn;
+    public void Respawn(Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        if (OnRespawn != null)
+        {
+            OnRespawn(spawnPosition, spawnRotation);
+        }
+    }
 }
+
+public enum PlayerDeathReason
+{
+    ManualRespawn,
+    DeadlyCollision
+}
+
