@@ -18,7 +18,7 @@ public class PushOffCollidersEffector : MonoBehaviour
     InputAction pushOffAction;
 
     bool tractorIsEngaged = false;
-    bool lookTargetIsInTractorRange = false;
+    bool? lookTargetIsInTractorRange = null;
     bool canCurrentlyPushOff = false;
     float? pushoffAngleFromTractorNormal;
 
@@ -27,6 +27,7 @@ public class PushOffCollidersEffector : MonoBehaviour
     
     [SerializeField] float pushForceMagnitude = 1f;
     [SerializeField] float raycastMaxDistance = 2f;
+    [SerializeField] GameObject tractorBeamOrigin;
     [Tooltip("Maximum angle (in degrees) between the tractor beam normal and the target pushoff direction. Probably under 90 for realism/reasonableness")]
     [Range(0f, 180f)][SerializeField] float maxAllowedPushoffAngle = 85f;
 
@@ -56,7 +57,7 @@ public class PushOffCollidersEffector : MonoBehaviour
             // we raycast continuously in order to update the HUD about whether look target is in range or not.
             Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             bool isInRange = (Physics.Raycast(ray, raycastMaxDistance));
-            if (isInRange != lookTargetIsInTractorRange)
+            if (lookTargetIsInTractorRange == null || isInRange != lookTargetIsInTractorRange)
             {
                 GameEventsSingleton.instance.PushOffStateChange(isInRange ? PushOffState.InRangeOfLookPoint : PushOffState.OutOfRangeOfLookPoint);
             }
@@ -76,7 +77,6 @@ public class PushOffCollidersEffector : MonoBehaviour
 
     void AttemptTractor()
     {
-
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out RaycastHit hit, raycastMaxDistance))
         {
@@ -89,8 +89,8 @@ public class PushOffCollidersEffector : MonoBehaviour
             springJoint.autoConfigureConnectedAnchor = false;
             springJoint.connectedBody = colliderRigidBody;
 
-            // Put the origin in the player's origin, otherwise their rotation is constrained and they can't turn around
-            springJoint.anchor = Vector3.zero;
+            // Put the origin at the tractor beam origin empty
+            springJoint.anchor = gameObject.transform.InverseTransformPoint(tractorBeamOrigin.transform.position);
             
             if (colliderRigidBody)
             {
@@ -105,12 +105,13 @@ public class PushOffCollidersEffector : MonoBehaviour
 
             // TODO make these SerializableFields
             springJoint.spring = 15f;
-            springJoint.damper = 0.4f;
-            springJoint.minDistance = 0.5f; 
+            springJoint.damper = 2.5f;
+            springJoint.minDistance = 0.5f; // player capsule collider radius
             springJoint.maxDistance = 0.8f;
             springJoint.enableCollision = true;
 
             tractorIsEngaged = true;
+            lookTargetIsInTractorRange = null;
 
             var prevCanCurrentlyPushOff = canCurrentlyPushOff;
             UpdatePushoffAngleFromTractorNormal();
@@ -124,6 +125,7 @@ public class PushOffCollidersEffector : MonoBehaviour
         if (tractorHit is RaycastHit hit)
         {
             if (!CanPushOff()) {
+                tractorIsEngaged = false;
                 return;
             }
 
@@ -175,5 +177,12 @@ public class PushOffCollidersEffector : MonoBehaviour
 
         //Debug.DrawRay(transform.position, pushoffDirection, Color.green, 3f);
         //Debug.DrawRay(transform.TransformPoint(springJoint.anchor), tractorNormal, Color.orange, 3f);
+
+        // Draw the spring
+        Debug.DrawRay(transform.TransformPoint(springJoint.anchor), (
+            springJoint.connectedBody
+                    ? springJoint.connectedBody.transform.TransformPoint(springJoint.connectedAnchor) // connectedbody local to world coords
+                    : springJoint.connectedAnchor // no connected body, connectedAnchor is already in world coords
+            ), Color.orange);
     }
 }
