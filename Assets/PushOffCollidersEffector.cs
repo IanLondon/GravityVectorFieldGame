@@ -16,6 +16,7 @@ public class PushOffCollidersEffector : MonoBehaviour
     Camera mainCamera;
     Rigidbody rigidBody;
     InputAction pushOffAction;
+    VectorFieldFollower vectorFieldFollower;
 
     bool tractorIsEngaged = false;
     bool? lookTargetIsInTractorRange = null;
@@ -30,11 +31,17 @@ public class PushOffCollidersEffector : MonoBehaviour
     [SerializeField] GameObject tractorBeamOrigin;
     [Tooltip("Maximum angle (in degrees) between the tractor beam normal and the target pushoff direction. Probably under 90 for realism/reasonableness")]
     [Range(0f, 180f)][SerializeField] float maxAllowedPushoffAngle = 85f;
+    [SerializeField] float spring = 15f;
+    [SerializeField] float springDamper = 5f;
+    [SerializeField] float springMinDistance = 0.2f;
+    [SerializeField] float springMaxDistance = 0.4f;
+    [SerializeField] bool enableCollisionSpring = true;
 
-    void Start()
+    void Awake()
     {
         mainCamera = Camera.main;
         rigidBody = GetComponent<Rigidbody>();
+        vectorFieldFollower = GetComponent<VectorFieldFollower>();
         pushOffAction = InputSystem.actions.FindAction("Jump");
     }
     bool CanPushOff()
@@ -102,13 +109,11 @@ public class PushOffCollidersEffector : MonoBehaviour
                 springJoint.connectedAnchor = hit.point;
             }
 
-
-            // TODO make these SerializableFields
-            springJoint.spring = 15f;
-            springJoint.damper = 5f;
-            springJoint.minDistance = 0.2f; // player capsule collider radius
-            springJoint.maxDistance = 0.4f;
-            springJoint.enableCollision = true;
+            springJoint.spring = spring;
+            springJoint.damper = springDamper;
+            springJoint.minDistance = springMinDistance;
+            springJoint.maxDistance = springMaxDistance;
+            springJoint.enableCollision = enableCollisionSpring;
 
             tractorIsEngaged = true;
             lookTargetIsInTractorRange = null;
@@ -116,6 +121,21 @@ public class PushOffCollidersEffector : MonoBehaviour
             var prevCanCurrentlyPushOff = canCurrentlyPushOff;
             UpdatePushoffAngleFromTractorNormal();
             GameEventsSingleton.instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
+
+            // disable player's VectorFieldFollower while tractor beam is engaged
+            vectorFieldFollower.enabled = false;
+
+            // neutralize player's inertia
+            rigidBody.angularVelocity = Vector3.zero;
+
+            if (colliderRigidBody)
+            {
+                // account for attaching to a moving body, we don't want to stop the target if the target is moving
+                rigidBody.linearVelocity = colliderRigidBody.linearVelocity; // TODO maybe scale this down by a factor
+            } else
+            {
+                rigidBody.linearVelocity = Vector3.zero;
+            }
         }
         // else do nothing, tractor didn't hit anything
     }
@@ -156,6 +176,8 @@ public class PushOffCollidersEffector : MonoBehaviour
         tractorHit = null;
         pushoffAngleFromTractorNormal = null;
         canCurrentlyPushOff = false;
+
+        vectorFieldFollower.enabled = true;
     }
 
     // We have to do this continuously in order to detect changes so we can send the event.

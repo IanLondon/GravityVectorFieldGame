@@ -146,6 +146,7 @@ Got a new, cleaner scene. I watched a video about the design of recent Mario gam
 5. Basic puzzle: maybe some levers move control points around (visualized by some sci-fi cylinder thing and floating no-collision little boxes that are constantly spawned from a "vent")
 
 I got the respawn/checkpoint system working, which was challenging because it's objects across scenes and there's a few different ways to do it. I tried to use events as much as possible, and the Player tag is useful too so that objects can respond to the Player collisions, target the Player etc, though the Player is in the `CommonScene` and those objects are in the levels.
+- For example, holding the tractor and restarting starts you off holding it! Needs to respond to respawn.
 
 Need a robust reset mechanism. Maybe write an initial state for everything that has a reset method, but that's easy to miss. Maybe can clone a scene and activate the next one, then delete the old one and load a new one. Maybe I should give up for now and just hard reset everything but the last activated checkpoint.
 
@@ -154,5 +155,6 @@ The tractor spring still needs tuning.
 - In uniform gravity, it's hard to aim "up" because even at its tightest the spring is at a 45deg angle as you hang down. Think about how to fix that angle measurement.
 
 I wonder if a fixed joint would be better and more controllable?
+- Tried it: it goes crazy because the mouse-look tries to turn, the vector field follower and point to vector direction components add forces, and the fixed joint is not happy. But maybe it's because I'm making the anchor points too close and they're colliding with each other (the player and the wall held by the tractor beam)
 
 Also, it would add a lot to be able to walk!
