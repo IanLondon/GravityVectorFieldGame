@@ -133,3 +133,26 @@ Nice to have: I noticed that because the camera is outside the player collider b
 It would also be cool to add walking controls, detect being on the ground. It's tricky to walk in a physics sim if you're not kinematic. PID??
 
 The ropes are glitchy, since they swirl around so much and are narrow the restriction on launch angle for kickoff feels weird. Oh well, not important, that's something that could be tuned in a real game.
+
+## Day 3, 2025/08/03
+
+Got a new, cleaner scene. I watched a video about the design of recent Mario games, how they have a gimmick mechanic each level, and the level design introduces the concept in a safe way, then develops it and makes it challenging with higher stakes, then adds a final twist showing a new side of the mechanic. Also, the placement of the first mushroom in Mario has it try to hit you and puts a block where most new players would try to jump so you can't escape it, then you learn it's good and not bad like the similar mushroom Goombas. I thought that would be a good way to show off this little game, in stages:
+
+1. Pushoff basics in uniform gravity. Learn that you have to face away from the wall to jump.
+2. Mario Galaxy like planet hopping. Local squish.
+	- Twist: you can hop around cubes etc to the other side.
+3. Tilted gravity basics. Learn that gravity can point in different directions, like a floor to a wall. ControlPointVectorField, but I need to make a limiter for it.
+4. Opposed force basics (zero gravity). Pushing off a floating cube will push the cube away. You need to go out down a path of cubes, flip a switch, and come back.
+5. Basic puzzle: maybe some levers move control points around (visualized by some sci-fi cylinder thing and floating no-collision little boxes that are constantly spawned from a "vent")
+
+I got the respawn/checkpoint system working, which was challenging because it's objects across scenes and there's a few different ways to do it. I tried to use events as much as possible, and the Player tag is useful too so that objects can respond to the Player collisions, target the Player etc, though the Player is in the `CommonScene` and those objects are in the levels.
+
+Need a robust reset mechanism. Maybe write an initial state for everything that has a reset method, but that's easy to miss. Maybe can clone a scene and activate the next one, then delete the old one and load a new one. Maybe I should give up for now and just hard reset everything but the last activated checkpoint.
+
+The tractor spring still needs tuning.
+- The player rolls too much when you grab on a wall -- maybe more dampening?
+- In uniform gravity, it's hard to aim "up" because even at its tightest the spring is at a 45deg angle as you hang down. Think about how to fix that angle measurement.
+
+I wonder if a fixed joint would be better and more controllable?
+
+Also, it would add a lot to be able to walk!

@@ -105,9 +105,9 @@ public class PushOffCollidersEffector : MonoBehaviour
 
             // TODO make these SerializableFields
             springJoint.spring = 15f;
-            springJoint.damper = 2.5f;
-            springJoint.minDistance = 0.5f; // player capsule collider radius
-            springJoint.maxDistance = 0.8f;
+            springJoint.damper = 5f;
+            springJoint.minDistance = 0.2f; // player capsule collider radius
+            springJoint.maxDistance = 0.4f;
             springJoint.enableCollision = true;
 
             tractorIsEngaged = true;
@@ -179,7 +179,7 @@ public class PushOffCollidersEffector : MonoBehaviour
         //Debug.DrawRay(transform.TransformPoint(springJoint.anchor), tractorNormal, Color.orange, 3f);
 
         // Draw the spring
-        Debug.DrawRay(transform.TransformPoint(springJoint.anchor), (
+        Debug.DrawLine(transform.TransformPoint(springJoint.anchor), (
             springJoint.connectedBody
                     ? springJoint.connectedBody.transform.TransformPoint(springJoint.connectedAnchor) // connectedbody local to world coords
                     : springJoint.connectedAnchor // no connected body, connectedAnchor is already in world coords
