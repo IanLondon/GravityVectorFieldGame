@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
 
 // A Singleton that sums all the vector fields that are registered with it.
 public class VectorFieldSingleton : MonoBehaviour, IVectorField
