@@ -18,6 +18,7 @@ public class PushOffCollidersEffector : MonoBehaviour
     InputAction pushOffAction;
     VectorFieldFollower vectorFieldFollower;
 
+    Vector3 tractorNormal;
     bool tractorIsEngaged = false;
     bool? lookTargetIsInTractorRange = null;
     bool canCurrentlyPushOff = false;
@@ -119,6 +120,7 @@ public class PushOffCollidersEffector : MonoBehaviour
             lookTargetIsInTractorRange = null;
 
             var prevCanCurrentlyPushOff = canCurrentlyPushOff;
+            tractorNormal = hit.normal;
             UpdatePushoffAngleFromTractorNormal();
             GameEventsSingleton.Instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
 
@@ -174,6 +176,7 @@ public class PushOffCollidersEffector : MonoBehaviour
         }
         tractorIsEngaged = false;
         tractorHit = null;
+        tractorNormal = Vector3.zero;
         pushoffAngleFromTractorNormal = null;
         canCurrentlyPushOff = false;
 
@@ -184,14 +187,6 @@ public class PushOffCollidersEffector : MonoBehaviour
     void UpdatePushoffAngleFromTractorNormal()
     {
         var pushoffDirection = mainCamera.transform.forward;
-
-        // "tractor normal" is from connected spring anchor to our object's spring anchor,
-        // ie pointing from where the tractor beam is anchored out to the player's point of anchor
-        var tractorNormal = transform.TransformPoint(springJoint.anchor) - (
-            springJoint.connectedBody
-                    ? springJoint.connectedBody.transform.TransformPoint(springJoint.connectedAnchor) // connectedbody local to world coords
-                    : springJoint.connectedAnchor // no connected body, connectedAnchor is already in world coords
-            );
 
         pushoffAngleFromTractorNormal = Vector3.Angle(pushoffDirection, tractorNormal);
 
@@ -206,5 +201,7 @@ public class PushOffCollidersEffector : MonoBehaviour
                     ? springJoint.connectedBody.transform.TransformPoint(springJoint.connectedAnchor) // connectedbody local to world coords
                     : springJoint.connectedAnchor // no connected body, connectedAnchor is already in world coords
             ), Color.orange);
+
+        Debug.DrawRay(transform.position, tractorNormal * 3, Color.aliceBlue);
     }
 }
