@@ -51,7 +51,7 @@ public class GameEventsSingleton : MonoBehaviour
     public event Action<bool> OnPlayerCanWalk;
     public void PlayerCanWalk(bool canWalk)
     {
-        Debug.Log("player can walk? " + canWalk);
+        //Debug.Log("player can walk? " + canWalk);
         if (OnPlayerCanWalk != null)
         {
             OnPlayerCanWalk(canWalk);

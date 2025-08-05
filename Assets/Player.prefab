@@ -161,7 +161,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 2
   m_LinearDamping: 0.01
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.15
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -206,8 +206,10 @@ MonoBehaviour:
   direction: 1
   vectorFieldGameObject: {fileID: 0}
   opposeForceDirection: 1
-  torqueRatio: 2
-  dampingFactor: 2
+  proportionalGain: 25
+  integralGain: 0
+  derivativeGain: 10
+  torqueCeiling: 200
 --- !u!114 &9015123663812726938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,8 +257,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxWalkAngle: 20
   walkForceFactor: 3
-  walkForcePosition: {fileID: 2162451159417502451}
   floorDetectorObject: {fileID: 5219780004408277021}
+  walkForceHeight: 1
+  forceDistanceFromCenter: 2
   canWalk: 0
 --- !u!1 &4653809549584383373
 GameObject:

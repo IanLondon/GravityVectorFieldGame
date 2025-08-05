@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 0.5
-  spacing: 5
+  spacing: 2
   xResolution: 19
   yResolution: 17
   zResolution: 15
@@ -694,7 +694,7 @@ Transform:
   m_GameObject: {fileID: 422418753}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.19, y: 9.52, z: -9.4}
+  m_LocalPosition: {x: -16.19, y: -6.23, z: -29.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1441,12 +1441,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2581598638493060288, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581598638493060288, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: vectorFieldGameObject
       value: 
       objectReference: {fileID: 977232393}
     - target: {fileID: 2682551982676680618, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682551982676680618, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3367863313450204673, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_Name
@@ -1455,6 +1463,22 @@ PrefabInstance:
     - target: {fileID: 3367863313450204673, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623363720406253115, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888082064960090339, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: torqueRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888082064960090339, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: derivativeGain
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888082064960090339, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: errorThreshold
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3888082064960090339, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: vectorFieldGameObject
@@ -1513,7 +1537,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2162451159417502451, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       insertIndex: 2

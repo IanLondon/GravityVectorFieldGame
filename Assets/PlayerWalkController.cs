@@ -10,9 +10,9 @@ public class PlayerWalkController : MonoBehaviour
     [Tooltip("Max angle between local vector force and player 'up' axis. Tilting more than this angle will prohibit walking.")]
     [SerializeField] float maxWalkAngle = 10f;
     [SerializeField] float walkForceFactor = 1f;
-    [Tooltip("An empty or other GameObject where the force should be applied")]
-    [SerializeField] GameObject walkForcePosition;
     [SerializeField] GameObject floorDetectorObject;
+    [SerializeField] float walkForceHeight = 1f;
+    [SerializeField] float forceDistanceFromCenter = 2f;
     [SerializeField] bool canWalk = false;
 
     void Awake()
@@ -56,7 +56,6 @@ public class PlayerWalkController : MonoBehaviour
 
         var nextCanWalk = angleWithinRange && floorDetector.IsOnFloor();
 
-        //Debug.Log("canWalk angle " + angle + ". " + (floorDetector.IsOnFloor() ? "On floor. " : "Not on floor. ") + (nextCanWalk ? "can walk" : "can NOT walk"));
         if (nextCanWalk != canWalk)
         {
             GameEventsSingleton.Instance.PlayerCanWalk(canWalk); // TODO: show some visual indicator eg on the HUD
@@ -74,9 +73,11 @@ public class PlayerWalkController : MonoBehaviour
             {
                 var localMovement = moveAction.ReadValue<Vector2>();
                 var worldMovement = transform.rotation * new Vector3(localMovement.x, 0f, localMovement.y);
-                Debug.DrawRay(transform.position, worldMovement, Color.red);
 
-                rigidBody.AddForceAtPosition(worldMovement * walkForceFactor, walkForcePosition.transform.position, ForceMode.Force);
+                var forcePosition = transform.position + transform.up * walkForceHeight + worldMovement * forceDistanceFromCenter;
+                Debug.DrawRay(forcePosition, worldMovement, Color.red);
+
+                rigidBody.AddForceAtPosition(worldMovement * walkForceFactor, forcePosition, ForceMode.Force);
             }
         }
     }
