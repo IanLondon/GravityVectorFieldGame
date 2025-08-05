@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 1636960876}
   - component: {fileID: 1636960875}
   - component: {fileID: 1636960879}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ParticleCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1478,7 +1478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.46
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.z
