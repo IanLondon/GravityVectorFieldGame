@@ -18,7 +18,7 @@ public class CheckpointTriggerDispatcher : MonoBehaviour
     }
     void Start()
     {
-        GameEventsSingleton.instance.OnCheckpointActivated += OnCheckpointActivated;
+        GameEventsSingleton.Instance.OnCheckpointActivated += OnCheckpointActivated;
     }
 
     void OnCheckpointActivated(GameObject checkpoint)
@@ -33,7 +33,7 @@ public class CheckpointTriggerDispatcher : MonoBehaviour
         // HACK: detect "if player" some more robust way. Maybe use collider layers, since player is the only thing that will collide with checkpoint that we care about.
         if (!active && other.gameObject.name == "Player")
         {
-            GameEventsSingleton.instance.CheckpointActivated(gameObject);
+            GameEventsSingleton.Instance.CheckpointActivated(gameObject);
         }
     }
 

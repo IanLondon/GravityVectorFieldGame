@@ -18,7 +18,7 @@ public class HUDCrosshair : MonoBehaviour
         // assume we start with this state
         reticle.AddToClassList("outOfRangeOfLookPoint");
 
-        GameEventsSingleton.instance.OnPushOffStateChange += OnPushOffStateChange;
+        GameEventsSingleton.Instance.OnPushOffStateChange += OnPushOffStateChange;
     }
 
     void ResetClasses()

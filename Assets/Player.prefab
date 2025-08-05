@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2162451159417502451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2682551982676680618}
+  m_Layer: 0
+  m_Name: WalkForceOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2682551982676680618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162451159417502451}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7534917775067504442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3367863313450204673
 GameObject:
   m_ObjectHideFlags: 0
@@ -17,6 +48,7 @@ GameObject:
   - component: {fileID: 3888082064960090339}
   - component: {fileID: 9015123663812726938}
   - component: {fileID: 6872470616059124989}
+  - component: {fileID: 3623363720406253115}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -39,6 +71,8 @@ Transform:
   m_Children:
   - {fileID: 6996300903436996754}
   - {fileID: 3017375978015784279}
+  - {fileID: 2682551982676680618}
+  - {fileID: 6848399526105430161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3763240230403502973
@@ -172,8 +206,8 @@ MonoBehaviour:
   direction: 1
   vectorFieldGameObject: {fileID: 0}
   opposeForceDirection: 1
-  torqueRatio: 0.8
-  dampingFactor: 1
+  torqueRatio: 2
+  dampingFactor: 2
 --- !u!114 &9015123663812726938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +224,11 @@ MonoBehaviour:
   raycastMaxDistance: 2
   tractorBeamOrigin: {fileID: 4653809549584383373}
   maxAllowedPushoffAngle: 85
+  spring: 10
+  springDamper: 2
+  springMinDistance: 0.25
+  springMaxDistance: 0.4
+  enableCollisionSpring: 1
 --- !u!114 &6872470616059124989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +241,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d5c5579764a49408e0d2d8055a4a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3623363720406253115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3367863313450204673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7990ab4780c0ec54388208d7660dc0ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxWalkAngle: 20
+  walkForceFactor: 3
+  walkForcePosition: {fileID: 2162451159417502451}
+  floorDetectorObject: {fileID: 5219780004408277021}
+  canWalk: 0
 --- !u!1 &4653809549584383373
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 4653809549584383373}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -261,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 4834761003715208881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.514, z: 0.07}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -465,3 +521,69 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1 &5219780004408277021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6848399526105430161}
+  - component: {fileID: 7088311286534946825}
+  - component: {fileID: 5760163000067010533}
+  m_Layer: 0
+  m_Name: FloorDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6848399526105430161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219780004408277021}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7534917775067504442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7088311286534946825
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219780004408277021}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.25, z: 1}
+  m_Center: {x: 0, y: -1.2, z: 0}
+--- !u!114 &5760163000067010533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219780004408277021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b24d41f08cfdd4bbbcde220201afbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

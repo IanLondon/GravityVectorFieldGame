@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6990872268952312618}
   - component: {fileID: 8764229900065748680}
   - component: {fileID: 472281114284223387}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6971782071447260862}
   - component: {fileID: 5931290805779161087}
   - component: {fileID: 7806101964602586689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,4 +156,4 @@ MonoBehaviour:
   platform: {fileID: 57844422046892413}
   activeMaterial: {fileID: 2100000, guid: 3b545418fd414e54487e91a2257fafbd, type: 2}
   inactiveMaterial: {fileID: 2100000, guid: d92278d4da3c203459d0784a798988bd, type: 2}
-  active: 0
+  initiallyActive: 0

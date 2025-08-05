@@ -609,7 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 333944410}
   - component: {fileID: 333944409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ParticleSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ MonoBehaviour:
   zPositionRange: 30
   activateOnInstantiate: 1
   poolSize: 150
-  particleRecycleRate: 0.01
+  particleRecycleFrequencySecs: 0.05
 --- !u!4 &333944410
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,33 +1436,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2162451159417502451, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2581598638493060288, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: vectorFieldGameObject
       value: 
       objectReference: {fileID: 977232393}
-    - target: {fileID: 3017375978015784279, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+    - target: {fileID: 2682551982676680618, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3017375978015784279, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3367863313450204673, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3367863313450204673, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3888082064960090339, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: vectorFieldGameObject
       value: 
       objectReference: {fileID: 977232393}
+    - target: {fileID: 4653809549584383373, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834761003715208881, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219780004408277021, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.96
+      value: 5.46
       objectReference: {fileID: 0}
     - target: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1496,23 +1512,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9015123663812726938, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
-      propertyPath: spring
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015123663812726938, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
-      propertyPath: springDamper
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9015123663812726938, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
-      propertyPath: springMinDistance
-      value: 0.25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7534917775067504442, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 333944410}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 985641cac74103a47b753eb95dbe3e87, type: 3}

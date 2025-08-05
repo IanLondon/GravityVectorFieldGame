@@ -158,3 +158,22 @@ I wonder if a fixed joint would be better and more controllable?
 - Tried it: it goes crazy because the mouse-look tries to turn, the vector field follower and point to vector direction components add forces, and the fixed joint is not happy. But maybe it's because I'm making the anchor points too close and they're colliding with each other (the player and the wall held by the tractor beam)
 
 Also, it would add a lot to be able to walk!
+
+## Day 4, 2025/08/04
+
+Fixed some bugs with tractor. Got basic walking mechanic, but it's fragile. I think it really needs a PID. It's sensitive to gravity: more gravity = more friction, which makes the player stuck. I think the PID would be in common with the vector follower. The player could have a more expensive PID vector follower that could be adapted for walking (where to apply the force and how much) while `VectorFieldFollower` simply is the P of PID I think, and is cheaper computationally and sufficient for most other things in the game.
+
+Also added simple "particle" pool of plain old cubes, that follows the player around. It is useful for seeing gravity distortions.
+
+Started working with collision layers, so the Player doesn't collide with self, and so things like the `FloorDetector` can exclude "player triggers"" like the checkpoint trigger box.
+
+I realized there's a `RaycastHit.normal`, that would probably work much better than my convoluted "tractor normal". Ought to switch it over later.
+
+I think the big problems left are:
+- Resetting quickly (which might require nothing more involved than reloading the scene! That's def worth trying before I continue to pursue the "reloadable" path)
+	- I think if you reset while holding tractor, it remains engaged. And camera tilt is preserved, etc. Pretty much anything holding state needs to reset it, which is difficult in OOP where state is everywhere.
+- Walking, as discussed above
+- I still wish for the "set initial data values, dispatch actions to update the data, read the data with selectors/lenses". Some data is local but most time the processing would be the same everywhere, eg there's 4 pushoff enums in the payload of that action, 2 mean tractor engaged, 2 mean tractor disengaged, so all listeners who care need to duplicate this logic. And there's no way to know the initial state, it's written locally each time.
+- Still could use more vector field control. For example, `LocalSquish` is useful but the player can't stand up on a non-spherical platform, it would be nice to have a "soft edges" uniform field and a "rectangular squish" equation.
+
+Also, to really show off the system, I want to add "opposed force basics" pushing off blocks, wall kicking to move a big block, and a final puzzle that moves the fields around with switches.

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GameEventsSingleton : MonoBehaviour
 {
-    public static GameEventsSingleton instance;
+    public static GameEventsSingleton Instance;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public event Action<PushOffState> OnPushOffStateChange;
@@ -45,6 +45,16 @@ public class GameEventsSingleton : MonoBehaviour
         if (OnRespawn != null)
         {
             OnRespawn(spawnPosition, spawnRotation);
+        }
+    }
+
+    public event Action<bool> OnPlayerCanWalk;
+    public void PlayerCanWalk(bool canWalk)
+    {
+        Debug.Log("player can walk? " + canWalk);
+        if (OnPlayerCanWalk != null)
+        {
+            OnPlayerCanWalk(canWalk);
         }
     }
 }

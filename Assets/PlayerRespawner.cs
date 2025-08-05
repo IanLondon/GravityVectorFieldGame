@@ -10,7 +10,7 @@ public class PlayerRespawner : MonoBehaviour
 
     void Start()
     {
-        GameEventsSingleton.instance.OnRespawn += OnRespawn;
+        GameEventsSingleton.Instance.OnRespawn += OnRespawn;
     }
 
     void OnRespawn(Vector3 spawnPosition, Quaternion spawnRotation)

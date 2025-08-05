@@ -19,15 +19,15 @@ public class Respawner : MonoBehaviour
     }
     void Start()
     {
-        GameEventsSingleton.instance.OnCheckpointActivated += OnCheckpointActivated;
-        GameEventsSingleton.instance.OnKillPlayer += OnKillPlayer;
+        GameEventsSingleton.Instance.OnCheckpointActivated += OnCheckpointActivated;
+        GameEventsSingleton.Instance.OnKillPlayer += OnKillPlayer;
     }
 
     void Update()
     {
         if (respawnAction.WasPressedThisFrame())
         {
-            GameEventsSingleton.instance.KillPlayer(PlayerDeathReason.ManualRespawn);
+            GameEventsSingleton.Instance.KillPlayer(PlayerDeathReason.ManualRespawn);
         }
     }
 
@@ -39,6 +39,6 @@ public class Respawner : MonoBehaviour
     void OnKillPlayer(PlayerDeathReason reason)
     {
         var respawnPosition = activeCheckpoint.transform.position + activeCheckpoint.transform.TransformDirection(spawnOffset);
-        GameEventsSingleton.instance.Respawn(respawnPosition, activeCheckpoint.transform.rotation);
+        GameEventsSingleton.Instance.Respawn(respawnPosition, activeCheckpoint.transform.rotation);
     }
 }

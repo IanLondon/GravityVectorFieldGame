@@ -7,7 +7,7 @@ public class DeadlyCollider : MonoBehaviour
         // HACK, try collision layers w player
         if (collision.collider.gameObject.CompareTag("Player"))
         {
-            GameEventsSingleton.instance.KillPlayer(PlayerDeathReason.DeadlyCollision);
+            GameEventsSingleton.Instance.KillPlayer(PlayerDeathReason.DeadlyCollision);
         }
     }
 }

@@ -57,7 +57,7 @@ public class PushOffCollidersEffector : MonoBehaviour
             UpdatePushoffAngleFromTractorNormal();
             if (prevCanCurrentlyPushOff != canCurrentlyPushOff)
             {
-                GameEventsSingleton.instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
+                GameEventsSingleton.Instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
             }
         } else {
             // tractor not engaged.
@@ -66,7 +66,7 @@ public class PushOffCollidersEffector : MonoBehaviour
             bool isInRange = (Physics.Raycast(ray, raycastMaxDistance));
             if (lookTargetIsInTractorRange == null || isInRange != lookTargetIsInTractorRange)
             {
-                GameEventsSingleton.instance.PushOffStateChange(isInRange ? PushOffState.InRangeOfLookPoint : PushOffState.OutOfRangeOfLookPoint);
+                GameEventsSingleton.Instance.PushOffStateChange(isInRange ? PushOffState.InRangeOfLookPoint : PushOffState.OutOfRangeOfLookPoint);
             }
             lookTargetIsInTractorRange = isInRange;
         }
@@ -120,7 +120,7 @@ public class PushOffCollidersEffector : MonoBehaviour
 
             var prevCanCurrentlyPushOff = canCurrentlyPushOff;
             UpdatePushoffAngleFromTractorNormal();
-            GameEventsSingleton.instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
+            GameEventsSingleton.Instance.PushOffStateChange(canCurrentlyPushOff ? PushOffState.TractorEngagedCanPushOff : PushOffState.TractorEngagedCannotPushOff);
 
             // disable player's VectorFieldFollower while tractor beam is engaged
             vectorFieldFollower.enabled = false;
